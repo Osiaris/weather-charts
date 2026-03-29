@@ -1,0 +1,26 @@
+@use '../../styles/variables' as *;
+select {
+  background-color: $bg-secondary;
+  color: $text-primary;
+  border: 1px solid $border;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.error {
+  color: $accent;
+  margin-bottom: 1rem;
+}
+.period-selector {
+  margin-bottom: 1rem;
+  max-width: 400px;
+}
+.period-selector fieldset {
+  border: 1px solid $border;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

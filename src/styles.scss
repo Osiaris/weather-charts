@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+@use 'styles/_variables.scss' as *;
+
+body {
+  background-color: $bg-primary;
+  color: $text-primary;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  header {
+    margin-bottom: 2rem;
+
+    h1 {
+      margin: 0;
+      font-size: 1.75rem;
+    }
+
+    p {
+      margin: 0.25rem 0 0;
+    }
+
+    p {
+      margin: 0.25rem 0 0;
+      color: $text-secondary;
+    }
+  }
+}

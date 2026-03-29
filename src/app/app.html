@@ -1,0 +1,23 @@
+<header>
+  <h1>Weather Charts</h1>
+  <p>Weather data from SMHI</p>
+  <nav>
+    <a
+      routerLink="/weather-history"
+      routerLinkActive="active"
+      #weatherHistoryLink="routerLinkActive"
+      [attr.aria-current]="weatherHistoryLink.isActive ? 'page' : null"
+      >Weather History</a
+    >
+
+    <a
+      routerLink="/comparison"
+      routerLinkActive="active"
+      #comparisonLink="routerLinkActive"
+      [attr.aria-current]="comparisonLink.isActive ? 'page' : null"
+      >Comparison</a
+    >
+  </nav>
+
+  <router-outlet />
+</header>

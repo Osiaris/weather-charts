@@ -1,0 +1,28 @@
+@use '../styles/variables' as *;
+
+nav {
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  a {
+    color: $text-primary;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid transparent;
+    text-decoration: underline;
+    transition:
+      border-color 0.3s ease,
+      color 0.3s ease;
+    &:hover {
+      border-color: $accent;
+      text-decoration: none;
+    }
+    &.active {
+      text-decoration: none;
+      color: $accent;
+      border-color: $accent;
+    }
+  }
+}
