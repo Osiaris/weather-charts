@@ -1,5 +1,5 @@
 <label for="station-selector">Station: </label>
-<select id="station-selector" (change)="onStationChange($event)" [ngModel]="selectedStation">
+<select [(ngModel)]="selectedStation" (ngModelChange)="onStationChange()">
   @for (station of stations; track station.id) {
     <option [value]="station.id">
       {{ station.name }}

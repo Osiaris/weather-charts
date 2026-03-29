@@ -22,7 +22,7 @@ export class Comparison implements OnInit {
 
   ngOnInit() {
     this.weather
-      .getStationDataForStations(
+      .getSeveralStationData(
         this.stations.map((station) => station.id),
         'latest-hour',
       )
@@ -61,7 +61,10 @@ export class Comparison implements OnInit {
         borderColor: '#2a2a4a',
         style: { color: '#e4e4e4' },
       },
-      legend: { itemStyle: { color: '#e4e4e4' } },
+      legend: {
+        itemStyle: { color: '#e4e4e4', textDecoration: 'underline' },
+        itemHoverStyle: { color: '#e4e4e4', textDecoration: 'none' },
+      },
       accessibility: { enabled: false },
       credits: { enabled: false },
     };

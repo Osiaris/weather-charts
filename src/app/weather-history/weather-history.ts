@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HighchartsChartComponent } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
-import { WeatherData } from '../interfaces/weather';
+import { WeatherData, StationData } from '../interfaces/weather';
 import { stations } from '../general/stations';
+
 @Component({
   selector: 'app-weather-history',
   imports: [HighchartsChartComponent, FormsModule],
@@ -31,7 +32,6 @@ export class WeatherHistory implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('ngOnInit called');
     const params = this.route.snapshot.queryParams;
     if (params['station']) this.selectedStation = Number(params['station']);
     if (params['period']) this.selectedPeriod = params['period'];
@@ -49,7 +49,6 @@ export class WeatherHistory implements OnInit {
     if (lastFetch && Date.now() - Number(lastFetch) < this.cutoffTimeInMillis) {
       return true;
     }
-    sessionStorage.setItem('lastFetch', Date.now().toString());
     return false;
   }
 
@@ -61,10 +60,8 @@ export class WeatherHistory implements OnInit {
     return data.filter((item) => item.timestamp > cutoff);
   }
 
-  onStationChange(event: Event) {
-    const stationId = parseInt((event.target as HTMLSelectElement).value);
-    if (isNaN(stationId)) return;
-    this.selectedStation = stationId;
+  onStationChange() {
+    if (isNaN(this.selectedStation)) return;
     this.updateDataFromServer();
     this.updateUrlParams();
   }
@@ -82,12 +79,12 @@ export class WeatherHistory implements OnInit {
 
   updateDataFromServer() {
     const stationAtRequest = this.selectedStation;
-    sessionStorage.setItem('lastFetch', Date.now().toString());
-    this.weather.getTemperature(this.selectedStation, 'latest-months').subscribe({
-      next: (data) => {
-        console.log('data received', data.length);
-        if (this.selectedStation !== stationAtRequest) return; // stale response
-        this.allData = data;
+
+    this.weather.getStationData(this.selectedStation, 'latest-months').subscribe({
+      next: (stationData) => {
+        sessionStorage.setItem('lastFetch', Date.now().toString());
+        if (this.selectedStation !== stationAtRequest) return; // stale response guard, don't update the chart
+        this.allData = stationData.values;
         this.loadedData = this.filterData(this.allData);
         this.chartOptions = this.createChartOptions(this.loadedData);
         this.cdr.detectChanges();
@@ -133,7 +130,8 @@ export class WeatherHistory implements OnInit {
         enabled: false,
       },
       legend: {
-        itemStyle: { color: '#e4e4e4' },
+        itemStyle: { color: '#e4e4e4', textDecoration: 'underline' },
+        itemHoverStyle: { color: '#e4e4e4', textDecoration: 'none' },
       },
       credits: { enabled: false },
     };
