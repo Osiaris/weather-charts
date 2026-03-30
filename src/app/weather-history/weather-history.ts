@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HighchartsChartComponent } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
-import { WeatherData, StationData } from '../interfaces/weather';
+import { WeatherData } from '../interfaces/weather';
 import { stations } from '../general/stations';
 
 @Component({
